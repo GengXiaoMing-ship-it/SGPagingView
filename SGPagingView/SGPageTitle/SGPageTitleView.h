@@ -21,6 +21,7 @@ typedef enum : NSUInteger {
 } SGImagePositionType;
 
 @protocol SGPageTitleViewDelegate <NSObject>
+
 /**
  *  联动 pageContent 的方法
  *
@@ -31,6 +32,7 @@ typedef enum : NSUInteger {
 @end
 
 @interface SGPageTitleView : UIView
+
 /**
  *  对象方法创建 SGPageTitleView
  *
@@ -57,6 +59,8 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) NSInteger selectedIndex;
 /** 重置选中标题按钮下标（用于子控制器内的点击事件改变标题的选中下标）*/
 @property (nonatomic, assign) NSInteger resetSelectedIndex;
+/// 保存外界传递过来的标题数组
+@property (nonatomic, strong) NSArray *titleArr;
 
 /** 根据标题下标值添加 badge */
 - (void)addBadgeForIndex:(NSInteger)index;

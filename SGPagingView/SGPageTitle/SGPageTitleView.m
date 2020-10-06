@@ -30,8 +30,7 @@
 @property (nonatomic, strong) UIView *indicatorView;
 /// 底部分割线
 @property (nonatomic, strong) UIView *bottomSeparator;
-/// 保存外界传递过来的标题数组
-@property (nonatomic, strong) NSArray *titleArr;
+
 /// 存储标题按钮的数组
 @property (nonatomic, strong) NSMutableArray *btnMArr;
 /// 存储标题按钮间分割线的数组
@@ -241,12 +240,13 @@
 }
 
 #pragma mark - - - 懒加载
-- (NSArray *)titleArr {
-    if (!_titleArr) {
-        _titleArr = [NSArray array];
-    }
-    return _titleArr;
-}
+//- (NSArray *)titleArr {
+//    if (!_titleArr) {
+//        _titleArr = [NSArray array];
+//    }
+//    return _titleArr;
+//}
+
 - (NSMutableArray *)btnMArr {
     if (!_btnMArr) {
         _btnMArr = [[NSMutableArray alloc] init];
@@ -1145,6 +1145,20 @@
     _resetSelectedIndex = resetSelectedIndex;
     [self P_btn_action:self.btnMArr[resetSelectedIndex]];
 }
+- (void)setSelectedIndex:(NSInteger)selectedIndex{
+    _selectedIndex = selectedIndex;
+}
+
+-(void)setTitleArr:(NSArray *)titleArr{
+    _titleArr = titleArr;
+    
+    [_titleArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+       
+        UIButton *button = _btnMArr[idx];
+        [button setTitle:obj forState:UIControlStateNormal];
+        [button setTitle:obj forState:UIControlStateSelected];
+    }];
+}
 
 #pragma mark - - - 计算字符串尺寸
 - (CGSize)P_sizeWithString:(NSString *)string font:(UIFont *)font {
@@ -1188,5 +1202,6 @@
         components[component] = resultingPixel[component] / 255.0f;
     }
 }
+
 
 @end
